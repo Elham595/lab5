@@ -1,0 +1,67 @@
+#include <iostream>
+#include<stdlib.h>
+using namespace std;
+class point
+{
+    int x,y;
+    public:
+       point()
+         {x=y=0;}
+       point(int m)
+         {x=y=m;}
+       point(int m,int n)
+         {x=m; y=n;}
+       void setX(int m)
+         {x=m;}
+       int getX()
+         {return x;}
+       void setY(int m)
+         {y=m;}
+       int getY()
+         {return x;}
+
+};
+class rectanglec
+{
+    point p1,p2;
+    int length, width;
+    public:
+        rectanglec(int x1, int x2, int y1, int y2):p1(x1,y1),p2(x2,y2)
+        {
+           length=abs(x2-x1);
+           width=abs(y1-y2);
+        }
+        void setp1(int x, int y)
+        {
+            p1.setX(x);
+            p1.setY(y);
+            length=abs((p2.getX())-x);
+            width=abs((p2.getY())-y);
+        }
+        void setp2(int x, int y)
+        {
+            p2.setX(x);
+            p2.setY(y);
+            length=abs((p1.getX())-x);
+            width=abs((p1.getY())-y);
+        }
+        int area()
+        {
+            return (length*width);
+        }
+        int circum()
+        {
+            return ((length+width)*2);
+        }
+
+};
+int main()
+{
+    rectanglec rect(3,5,9,12);
+    cout<<"AREA =";
+    cout<<rect.area()<<endl;
+    cout<<"CIRCUM =";
+    cout<<rect.circum()<<endl;
+
+    return 0;
+}

@@ -1,0 +1,181 @@
+#include <iostream>
+#include<string.h>
+using namespace std;
+class employee
+{
+  private:
+    int id;
+    char* name;
+    int name_size;
+    static char*company_name;
+    int salary;
+
+  public:
+      ////////set and get of id
+      void setId(int ID)
+      {
+          id=ID;
+      }
+      int getId()
+      {
+          return id;
+      }
+      /////////set and get of name
+      void setName(char* Name)
+      {
+          //name=Name;
+          //delete(name);////////problem when uncommented there is nothing in the output
+          name_size=strlen(Name);
+          name=new char[name_size+1];
+          strcpy(name,Name);
+      }
+      char* getName()
+      {
+          return name;
+      }
+      /////////////////set and get company name
+      /*void setcompName(char* Name)
+      {
+       name_size=strlen(Name);
+       company_name=new char[name_size+1];
+       strcpy(company_name,Name);
+      }*/
+      static char* getcompName()
+      {
+          return company_name;
+      }
+      ////////set and get of salary
+      void setSalary(int Salary)
+      {
+          salary=Salary;
+      }
+      int getSalary()
+      {
+          return salary;
+      }
+      ///////////////set and get of size
+      void setSize(int Name_size)
+      {
+          name_size=Name_size;
+      }
+      int getSize()
+      {
+          return name_size;
+      }
+      //////////default constructor
+      employee()
+      {
+          setId(1);
+          setSize(10);
+          setName("Elham");
+          //name=new char[strlen(name)+1];
+          setSalary(3000);
+      }
+      ////////constructor with one parameter
+      employee(int i)
+      {
+          setId(i);
+          //setSize(10);
+          setName("Elham");
+          //name=new char[strlen(name)+1];
+          setSalary(3000);
+      }
+      ///////////////////constructor with two parameter
+      employee(int i,char*n)
+      {
+          setId(i);
+          setSize(10);
+          //name=new char[strlen(name)+1];
+          setName(n);
+          setSalary(3000);
+      }
+      ////////constructor with three parameter
+      employee(int i,char*n,int s)
+      {
+          setId(i);
+          setSize(10);
+          //name=new char[strlen(name)+1];
+          setName(n);
+          setSalary(s);
+      }
+      ////////constructor with four parameter
+      employee(int i,char*n,int s,int siz)
+      {
+          setId(i);
+          setSize(10);
+          //name=new char[strlen(name)+1];
+          setName(n);
+          setSalary(s);
+          setSize(siz);
+      }
+      ~employee()
+      {
+          delete(name);
+      }
+      //////////////////copy constructor
+      employee(employee& em)
+      {
+          id=em.id;
+          name_size=strlen(em.name);
+          name=new char[name_size+1];
+          strcpy(name,em.name);
+          salary=em.salary;
+      }
+      void print()
+      {
+          cout<<"Employee "<<id<<endl;
+          cout<<"Name :"<<name<<endl;
+          cout<<"Salary :"<<salary<<endl;
+          cout<<"Company Name :"<<company_name<<endl;
+      }
+
+};
+char* employee::company_name="microsoft"; //in case if you want to make it unchangable
+int main()
+{
+    employee emp;
+    employee::getcompName();
+    emp.print();
+    cout<<"-----------------"<<endl;
+    //////////////////////constructor of 1 parameter
+    employee emp1(2);
+    emp1.print();
+    cout<<"-----------------"<<endl;
+    //////////////////////constructor of 2 parameter
+    employee emp2(3,"ali");//2 par
+    emp2.print();
+    cout<<"--------------"<<endl;
+    //////////////////////constructor of 3 parameter
+    employee emp3(4,"noor",500);
+    emp3.print();
+    cout<<"----------------"<<endl;
+    ///////////////////////////////////////////////////////copy constructor
+    employee emp4=emp1;
+    emp4.print();
+    cout<<"-----------------"<<endl;
+    employee emp5(emp);
+    emp5.print();
+    cout<<"-----------------"<<endl;
+    cout<<"HERE IS THE ARRAY OF OBJECTS"<<endl;
+    employee arr[5]/*={/*employee(),employee(7),employee(4,"noor"),employee(8,"lili",2000),employee(9,"amr")}*/;
+    for(int i=0;i<5;i++)
+    {
+        arr[i].print();
+        cout<<"--------"<<endl;
+    }
+    //array of objects with dynamic size
+    employee *ptr;
+    ptr=new employee[3];
+    ptr[0]=employee(10,"ali");
+    ptr[1]=employee(11,"dora");
+    ptr[2]=employee(12,"alaa");
+    cout<<"HERE IS THE ARRAY OF OBJECTS WITH DYNAMIC SIZE"<<endl;
+    for(int i=0;i<3;i++)
+    {
+        ptr[i].print();
+        cout<<"--------"<<endl;
+    }
+
+    delete []ptr;
+    return 0;
+}
