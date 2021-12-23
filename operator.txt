@@ -1,0 +1,231 @@
+#include <iostream>
+#include<string.h>
+using namespace std;
+class employee
+{
+  private:
+    int id;
+    char* name;
+    int name_size;
+    int salary;
+
+  public:
+      ////////set and get of id
+      void setId(int ID)
+      {
+          id=ID;
+      }
+      int getId()
+      {
+          return id;
+      }
+      /////////set and get of name
+      void setName(char* Name)
+      {
+          //name=Name;
+          //delete(name);////////problem when uncommented there is nothing in the output
+          name_size=strlen(Name);
+          name=new char[name_size+1];
+          strcpy(name,Name);
+      }
+      char* getName()
+      {
+          return name;
+      }
+      ////////set and get of salary
+      void setSalary(int Salary)
+      {
+          salary=Salary;
+      }
+      int getSalary()
+      {
+          return salary;
+      }
+      ///////////////set and get of size
+      void setSize(int Name_size)
+      {
+          name_size=Name_size;
+      }
+      int getSize()
+      {
+          return name_size;
+      }
+      //////////default constructor
+      employee()
+      {
+          setId(1);
+          setSize(10);
+          setName("Elham");
+          //name=new char[strlen(name)+1];
+          setSalary(3000);
+      }
+      ////////constructor with one parameter
+      employee(int i)
+      {
+          setId(i);
+          //setSize(10);
+          setName("Elham");
+          //name=new char[strlen(name)+1];
+          setSalary(3000);
+      }
+      ///////////////////constructor with two parameter
+      employee(int i,char*n)
+      {
+          setId(i);
+          setSize(10);
+          //name=new char[strlen(name)+1];
+          setName(n);
+          setSalary(3000);
+      }
+      ////////constructor with three parameter
+      employee(int i,char*n,int s)
+      {
+          setId(i);
+          setSize(10);
+          //name=new char[strlen(name)+1];
+          setName(n);
+          setSalary(s);
+      }
+      ////////constructor with four parameter
+      employee(int i,char*n,int s,int siz)
+      {
+          setId(i);
+          setSize(10);
+          //name=new char[strlen(name)+1];
+          setName(n);
+          setSalary(s);
+          setSize(siz);
+      }
+      ~employee()
+      {
+          delete(name);
+      }
+       void print()
+      {
+          cout<<"Employee "<<id<<endl;
+          cout<<"Name :"<<name<<endl;
+          cout<<"Salary :"<<salary<<endl;
+      }
+      /////////////////////////////////////////operator +
+      employee operator+(employee emp)
+      {
+          employee temp;
+          temp.id=id+emp.id;
+          temp.name=strcat(strcat(name," "),emp.name);
+          temp.salary=salary+emp.salary;
+          return temp;
+      }
+      /////////////////////////////////////////operator + with salary
+      employee operator+(int x)
+      {
+          employee temp;
+          temp.salary=salary+x;
+          return temp;
+      }
+      ///////////////////////////////////////operator + with name first
+      employee operator+(char*n)
+      {
+          employee temp;
+          temp.name=strcat(strcat(name," "),n);
+          /*char *choice;
+          cout<<"Adding Name At First Or Last"<<endl;
+          cin>>choice;
+          if(choice=="first")
+              temp.name=strcat(strcat(n," "),name);
+          else if(choice=="last")
+              temp.name=strcat(name,strcat(n," "));*/
+          return temp;
+      }
+       ///////////////////////////////////////operator + with name last
+      /*employee operator+(char *m)
+      {
+          employee temp;
+          temp.name=strcat(strcat(name," "),m);
+          return temp;
+      }*/
+      /////////////////////////////////////////++ operator
+      employee operator++()
+      {
+          id++;
+          salary++;
+          return *this;
+      }
+      /////////////////////////////////////////operator ++
+      employee operator++(int d)
+      {
+          employee temp;
+          id++;
+          salary++;
+          return temp;
+      }
+      /////////////////////////////////////////operator ==
+      int operator==(employee emp)
+      {
+          return (emp.id==id);
+      }
+      /////////////////////////////////////////operator =
+     /* employee& operator=(employee& emp)
+      {
+          id=emp.id;
+          name_size=strlen(emp.name);
+          name=new char[name_size+1];
+          strcpy(name,emp.name);
+          salary=emp.salary;
+          return emp;
+      }*/
+      ///////////////////////////casting
+      operator int(){
+        return id;
+      }
+       ///////////////////////////casting
+      operator char*(){
+        return name;
+      }
+};
+int main()
+{
+    employee emp1;
+    emp1.print();
+    cout<<"--------------"<<endl;
+    employee emp2(2,"muhammed",2000);
+    emp2.print();
+    cout<<"--------------"<<endl;
+    ///////////////////////////operator +
+    cout<<"**********implementation of +operator**********"<<endl;
+    employee emp3;
+    emp2=emp1+emp2;
+    emp2.print();cout<<endl;
+    cout<<"**********implementation of +operator with salary**********"<<endl;
+    emp2=emp1+5000;
+    emp2.print();cout<<endl;
+    cout<<"**********implementation of +operator with name**********"<<endl;
+    emp2=emp1+"balbaa";
+    emp2.print();cout<<endl;
+    //emp2=emp1+"hi!";
+    //emp2.print();cout<<endl;
+    ///////////////////////////++ operator
+    cout<<"*********implementation of ++operator**********"<<endl;
+    ++emp1;
+    emp1.print();cout<<endl;
+    ///////////////////////////operator++
+    cout<<"***************implementation of operator++*************"<<endl;
+    emp2++;
+    emp2.print();cout<<endl;
+    //(emp1++).print();//not working
+    ///////////////////////////operator==
+    cout<<"***************implementation of operator==*************"<<endl;
+    if(emp1==emp3)
+        cout<<"Equal"<<endl;
+    else
+        cout<<"Not Equal"<<endl;
+    cout<<"***************implementation of operator=*************"<<endl;
+    emp2=emp3;
+    emp2.print();cout<<endl;
+    cout<<"***************implementation of operator int*************"<<endl;
+    int cast=int(emp1);
+    cout<<cast<<endl;
+    cout<<"***************implementation of operator char**************"<<endl;
+    char* cast_char=(char*)emp2;
+    cout<<cast_char<<endl;
+    return 0;
+}
